@@ -1,0 +1,26 @@
+# Understand file structure
+## Why so many css files
+
+# Frontend 
+## Todo app part - Title / Add new todo(CREATE) / List all todo(GET) / Delete a todo(DELETE) / Edit a todo(UPDATE) / Mark as done(UPDATE) / Hide & unhide done
+## Work from top component to inner component
+
+# Backend
+## Use node.js or django + fastapi
+## Add a database 
+## Change frontend so that it calls api from backend instead of using front end var
+
+# Add detail page to each listing 
+## Add new route to new page to see/edit details of todo
+
+# Add authentication of members to crud access
+## Implement login and password - see what type of password encryption there are
+## Implement roles
+## Implement limited access to each roles
+
+# Extra feature
+## Implement auto login after first login
+## add premium member to bypass 10 items limit
+
+## questions to answer
+# what is middleware
