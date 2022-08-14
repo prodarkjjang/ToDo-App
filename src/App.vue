@@ -1,46 +1,60 @@
 <script setup>
 // import HelloWorld from './components/example.vue'
+// ref 
+//  :bind @listen v-model v-for :key
+// function example() {}
+// const emp = computed(() => {return ____})
+  import { ref, computed } from 'vue'
+
+  let id = 0
+  
+  const newToDo = ref('')
+  const todos = ref([ 
+    { id: id++, title: "Todo 1", done: false },
+    { id: id++, title: "Todo 2", done: false },
+    { id: id++, title: "Todo 3", done: false }
+  ])
+  const hideDone = ref(false)
+
+  const filteredToDos = computed(()=> {
+    return hideDone.value ?
+    todos.value.filter( (t) => !t.done) : todos.value
+  })
+
+  function addToDo() {
+    todos.value.push({ id: id++, title: newToDo.value, done: false })
+    newToDo.value = ""
+  }
+
+  function removeToDo(todo) {
+    todos.value = todos.value.filter( (t) => t !== todo )
+  }
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <h1>To Do App</h1>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+  <form @submit.prevent="addToDo">
+    <input v-model="newToDo" placeholder="New To Do">
+    <button>Add Todo</button> 
+  </form>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <ul>
+    <li v-for="todo in filteredToDos" :key="todo.id">
+      <input type="checkbox" v-model="todo.done" />
+      <span :class="{ done: todo.done }">
+        {{todo.title}}
+      </span>
+      <button @click="removeToDo(todo)">X</button>
+    </li>
+  </ul>
+
+  <button @click="hideDone=!hideDone">{{hideDone ? "Unhide Done" : "Hide Done" }}</button>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.done {
+  text-decoration: line-through;
 }
 </style>

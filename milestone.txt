@@ -1,6 +1,3 @@
-# Understand file structure
-## Why so many css files
-
 # Frontend 
 ## Todo app part - Title / Add new todo(CREATE) / List all todo(GET) / Delete a todo(DELETE) / Edit a todo(UPDATE) / Mark as done(UPDATE) / Hide & unhide done
 ## Work from top component to inner component
