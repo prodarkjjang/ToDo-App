@@ -56,37 +56,48 @@
 </script>
 
 <template>
-  <h1>To Do App</h1>
-
-  <form @submit.prevent="addToDo">
-    <input v-model="newToDo" placeholder="New To Do">
-    <button>Add Todo</button> 
-  </form>
-
-  <ul>
-    <li v-for="todo in filteredToDos" :key="todo.id">
-      <input type="checkbox" v-model="todo.done" />
-      <span :class="{ done: todo.done }" @dblclick="editToDo(todo)">
-        {{todo.title}}
-      </span>
-      <button @click="removeToDo(todo)">X</button>
-      <input
-            v-if="todo === editedToDo"
-            type="text"
-            v-model="todo.title"
-            @vnode-mounted="({ el }) => el.focus()"
-            @blur="doneEdit(todo)"
-            @keyup.enter="doneEdit(todo)"
-            @keyup.escape="cancelEdit(todo)"
-          >
-    </li>
-  </ul>
-  <p>{{ editedToDo }}</p>
-  <button @click="hideDone=!hideDone">{{hideDone ? "Unhide Done" : "Hide Done" }}</button>
+  <section class="todoapp">
+    <header class="header">
+      <h1>To Do App</h1>
+      <input 
+        class="new-todo"
+        v-model="newToDo" 
+        placeholder="New To Do" 
+        @keyup.enter="addToDo"
+      >
+    </header>
+    <ul>
+      <li 
+        v-for="todo in filteredToDos" 
+        :key="todo.id"
+        :class="{ done: todo.done, editing: todo === editedToDo }"  
+      >
+        <div class="view">
+          <input class="toggle" type="checkbox" v-model="todo.done" />
+          <label @dblclick="editToDo(todo)">
+            {{todo.title}}
+          </label>
+          <button class="destroy" @click="removeToDo(todo)">X</button>
+        </div>
+        <input
+              v-if="todo === editedToDo"
+              class="edit"
+              type="text"
+              v-model="todo.title"
+              @vnode-mounted="({ el }) => el.focus()"
+              @blur="doneEdit(todo)"
+              @keyup.enter="doneEdit(todo)"
+              @keyup.escape="cancelEdit(todo)"
+            >
+      </li>
+    </ul>
+    <p>{{ editedToDo }}</p>
+    <button @click="hideDone=!hideDone">{{hideDone ? "Unhide Done" : "Hide Done" }}</button>
+  </section>
 </template>
 
 <style scoped>
-.done {
-  text-decoration: line-through;
-}
+@import "assets/main.css";
+
+
 </style>
